@@ -212,7 +212,7 @@ main {
     span {
       font-family: "ArialRoundedMTBold";
       color: #dcdcdc;
-      font-size: 100px; 
+      font-size: 100px;
       font-weight: 400;
     }
     p {
@@ -225,4 +225,10 @@ main {
       margin-top: 30px;
     }
   }
+}
+
+footer {
+  background-color: #e5e5e5;
+  height: 460px;
+  background: url("/static/img/FooterBg.png");
 }

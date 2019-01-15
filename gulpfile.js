@@ -24,6 +24,16 @@ gulp.task("pug", function() {
     .on("end", browserSync.reload);
 });
 
+gulp.task("fonts", function() {
+  return gulp
+    .src("src/static/fonts/**/*")
+    .pipe(gulp.dest("build/static/fonts"));
+});
+
+gulp.task("img", function() {
+  return gulp.src("src/static/img/**/*").pipe(gulp.dest("build/static/img"));
+});
+
 gulp.task("scss", function() {
   return gulp
     .src("src/static/scss/index.scss")
@@ -42,17 +52,24 @@ gulp.task("scss", function() {
     )
     .pipe(gp.csso())
     .pipe(gulp.dest("build/static/css"))
-    .pipe(browserSync.reload({
-        stream:true
-    }));
+    .pipe(
+      browserSync.reload({
+        stream: true
+      })
+    );
 });
 
 gulp.task("watch", function() {
   gulp.watch("src/pug/**/*.pug", gulp.series("pug"));
   gulp.watch("src/static/**/*.scss", gulp.series("scss"));
+  gulp.watch("src/static/fonts/**/*", gulp.series("fonts"));
+  gulp.watch("src/static/img/**/*", gulp.series("img"));
 });
 
 gulp.task(
   "default",
-  gulp.series(gulp.parallel("pug", "scss"), gulp.parallel("watch", "serve"))
+  gulp.series(
+    gulp.parallel("pug", "scss", "fonts", "img"),
+    gulp.parallel("watch", "serve")
+  )
 );

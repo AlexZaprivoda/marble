@@ -3,6 +3,37 @@
   src: url(../fonts/8665.ttf) format("truetype");
 }
 
+@mixin fonts(
+  $ff: false,
+  $size: false,
+  $fontColor: false,
+  $weight: false,
+  $lh: false,
+  $td: false,
+  $tt: false
+) {
+  @if $ff {
+    font-family: $ff;
+  }
+  @if $size {
+    font-size: $size;
+  }
+  @if $fontColor {
+    color: $fontColor;
+  }
+  @if $weight {
+    font-weight: $weight;
+  }
+  @if $lh {
+    line-height: $lh;
+  }
+  @if $td {
+    text-decoration: $td;
+  }
+  @if $tt {
+    text-transform: $tt;
+  }
+}
 $color1: #1abb9c;
 $color2: #4e4e4e;
 $color3: #e5e5e5;
@@ -18,7 +49,6 @@ $color12: #f3f3f3;
 $color13: #d2514b;
 $color14: #66a3c6;
 $color15: #e8c04f;
-
 body {
   margin: 0;
   & > * {
@@ -34,33 +64,33 @@ header {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  font-family: "Roboto Condensed";
-  text-transform: uppercase;
-  font-weight: 700;
-  color: $color2;
+  @include fonts(
+    $ff: "Roboto Condensed",
+    $weight: 700,
+    $tt: uppercase,
+    $fontColor: $color2
+  );
   div {
     display: flex;
     justify-content: center;
     align-items: center;
   }
   span {
-    font-size: 40px;
+    @include fonts($size: 40px);
   }
   a {
-    color: $color2;
-    text-decoration: none;
+    @include fonts($fontColor: inherit, $td: none);
     margin: 0 20px;
     &:hover {
-      color: $color1;
+      @include fonts($fontColor: $color1);
     }
   }
 }
-
 main {
   #slider {
     height: 600px;
     background: url("/static/img/Layer1.png");
-    font-family: "Roboto Slab";
+    @include fonts($ff: "Roboto Slab");
     display: flex;
     justify-content: space-around;
     align-items: center;
@@ -72,27 +102,26 @@ main {
       margin: 0;
     }
     h1 {
-      color: $color12;
-      font-size: 40px;
+      @include fonts($fontColor: $color12, $size: 40px);
     }
     h2 {
-      color: $color6;
-      font-size: 32px;
+      @include fonts($fontColor: $color6, $size: 32px);
       margin: 40px 0;
     }
     a {
-      color: rgb(255, 255, 255);
-      font-family: "Roboto";
-      font-size: 14px;
-      font-weight: unset;
-      font-weight: 400;
-      text-decoration: none;
+      @include fonts(
+        $fontColor: rgb(255, 255, 255),
+        $size: 14px,
+        $ff: "Roboto",
+        $weight: 400,
+        $td: none,
+        $tt: uppercase
+      );
       padding: 20px 25px;
       border-radius: 3px;
       background-color: $color10;
-      text-transform: uppercase;
       &:hover {
-        color: rgba(255, 255, 255, 0.11);
+        @include fonts($fontColor: rgba(255, 255, 255, 0.11));
       }
     }
   }
@@ -112,7 +141,7 @@ main {
       box-sizing: border-box;
       justify-content: space-around;
       flex-wrap: wrap;
-      font-family: "Roboto";
+      @include fonts($ff: "Roboto");
       & > div {
         height: 215px;
         width: 230px;
@@ -147,17 +176,17 @@ main {
           align-items: center;
         }
         h3 {
-          font-family: RobotoSlab;
-          color: $color2;
-          font-size: 18px;
-          font-weight: 700;
+          @include fonts(
+            $ff: "Roboto Slab",
+            $fontColor: $color2,
+            $size: 18px,
+            $weight: 700,
+            $tt: capitalize
+          );
           margin-top: 10px;
-          text-transform: capitalize;
         }
         p {
-          color: #616161;
-          font-size: 14px;
-          font-weight: 400;
+          @include fonts($fontColor: #616161, $size: 14px, $weight: 400);
           text-align: center;
         }
       }
@@ -170,11 +199,13 @@ main {
         margin: 0;
       }
       h2 {
-        font-family: "Roboto Condensed";
-        color: $color2;
-        font-size: 18px;
-        font-weight: 700;
-        text-transform: uppercase;
+        @include fonts(
+          $ff: "Roboto Condensed",
+          $fontColor: $color2,
+          $size: 18px,
+          $weight: 700,
+          $tt: uppercase
+        );
         margin-bottom: 25px;
       }
       .posts {
@@ -182,29 +213,26 @@ main {
         div {
           width: 380px;
           flex-direction: column;
-          font-family: "Roboto Slab";
-
+          @include fonts($ff: "Roboto Slab");
           h3,
           h4 {
-            text-transform: capitalize;
+            @include fonts($tt: capitalize);
           }
           h3 {
-            color: $color2;
-            font-size: 18px;
-            font-weight: 700;
+            @include fonts($fontColor: $color2, $size: 18px, $weight: 700);
             margin: 20px 0 10px;
           }
           h4 {
-            color: $color6;
-            font-size: 13px;
-            font-weight: 400;
+            @include fonts($fontColor: $color6, $size: 13px, $weight: 400);
             margin-bottom: 20px;
           }
           p {
-            font-family: "Roboto";
-            color: $color9;
-            font-size: 14px;
-            font-weight: 400;
+            @include fonts(
+              $ff: "Roboto",
+              $fontColor: $color9,
+              $size: 14px,
+              $weight: 400
+            );
           }
         }
       }
@@ -217,23 +245,26 @@ main {
     flex-direction: column;
     align-items: center;
     span {
-      font-family: "ArialRoundedMTBold";
-      color: $color4;
-      font-size: 100px;
-      font-weight: 400;
+      @include fonts(
+        $fontColor: $color4,
+        $size: 100px,
+        $weight: 400,
+        $ff: "ArialRoundedMTBold"
+      );
     }
     p {
-      font-family: "Roboto Slab";
-      color: $color5;
-      font-size: 20px;
-      font-weight: 400;
+      @include fonts(
+        $fontColor: $color5,
+        $size: 20px,
+        $weight: 400,
+        $ff: "Roboto Slab"
+      );
       text-align: center;
       width: 735px;
       margin-top: 30px;
     }
   }
 }
-
 footer {
   background-color: $color3;
   height: 460px;
@@ -257,28 +288,29 @@ footer {
         margin: 0;
       }
       & * {
-        font-family: "Roboto";
-        color: $color7;
-        font-size: 14px;
-        font-weight: 400;
+        @include fonts(
+          $fontColor: $color7,
+          $size: 14px,
+          $weight: 400,
+          $ff: "Roboto"
+        );
       }
       h4 {
-        font-family: "Roboto Condensed";
-        color: $color8;
-        font-size: 18px;
-        font-weight: 700;
-        text-transform: uppercase;
+        @include fonts(
+          $fontColor: $color8,
+          $size: 18px,
+          $weight: 700,
+          $ff: "Roboto Condensed",
+          $tt: uppercase
+        );
       }
       p {
-        font-size: 14px;
-        font-weight: 400;
+        @include fonts($size: 14px, $weight: 400);
         margin-top: 25px;
         line-height: 22px;
       }
       h3 {
-        font-family: "Roboto Slab";
-        font-size: 12px;
-        font-weight: 400;
+        @include fonts($size: 12px, $weight: 400, $ff: "Roboto Slab");
       }
       & > div {
         display: flex;
@@ -293,7 +325,6 @@ footer {
           span {
             margin-bottom: 10px;
           }
-
           img {
             &:nth-child(1) {
               margin-bottom: 45px;
@@ -310,10 +341,12 @@ footer {
     height: 112px;
     display: flex;
     align-items: center;
-    font-family: "Roboto";
-    color: $color7;
-    font-size: 14px;
-    font-weight: 400;
+    @include fonts(
+      $size: 14px,
+      $weight: 400,
+      $ff: "Roboto",
+      $fontColor: $color7
+    );
     border-top: 2px solid rgba(255, 255, 255, 0.11);
     box-sizing: border-box;
   }

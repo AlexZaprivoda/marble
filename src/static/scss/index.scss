@@ -61,6 +61,30 @@ $color12: #f3f3f3;
 $color13: #d2514b;
 $color14: #66a3c6;
 $color15: #e8c04f;
+@mixin fluidFontSize($f-min, $f-max, $w-min, $w-max, $fallback: false) {
+  font-size: $f-min;
+  @media (min-width: $w-min) {
+    @if ($fallback) {
+      font-size: $fallback;
+    }
+    font-size: calcFluidFontSize($f-min, $f-max, $w-min, $w-max, px);
+  }
+  @media (min-width: $w-max) {
+    font-size: $f-max;
+  }
+}
+@mixin fluidHeightSize($h-min, $h-max, $w-min, $w-max, $fallback: false) {
+  height: $h-min;
+  @media (min-width: $w-min) {
+    @if ($fallback) {
+      height: $fallback;
+    }
+    height: calcFluidFontSize($h-min, $h-max, $w-min, $w-max, px);
+  }
+  @media (min-width: $w-max) {
+    height: $h-max;
+  }
+}
 body {
   margin: 0;
   & > * {
@@ -70,11 +94,10 @@ body {
 }
 header {
   @media screen and (max-width: 768px) {
-    height: 85px;
     @include flex($jc: center, $ai: center);
   }
   background-color: $color3;
-  height: 125px;
+  @include fluidHeightSize(35px, 125px, 480px, 1600px, 7.8125vw);
   padding: 0 13.24%;
   box-sizing: border-box;
   @include flex($jc: space-between, $ai: center);
@@ -86,41 +109,23 @@ header {
   );
   div {
     @include flex($jc: center, $ai: center);
-    &:nth-child(2) {
-      @media screen and (max-width: 768px) {
-        display: none; // скрыли
-      }
+  }
+  .menu {
+    width: 28.8146%;
+    @media screen and (max-width: 768px) {
+      display: none;
     }
   }
   span {
-    @include fonts($size: 40px);
+    @include fluidFontSize(12px, 40px, 480px, 1600px, 2.5vw);
   }
   a {
     @include fonts($fontColor: inherit, $td: none);
-    margin: 0 20px;
+    @include fluidFontSize(12px, 1em, 480px, 1600px, 1vw);
+    margin: 0 5.9835%;
     &:hover {
       @include fonts($fontColor: $color1);
     }
-  }
-}
-menu {
-  display: none;
-  @media screen and (max-width: 768px) {
-    @include flex($jc: flex-end, $ai: center);
-    height: 45px;
-    background-color: $color2;
-  }
-  label {
-    border-bottom: 14px double $color6;
-    border-top: 5px solid $color6;
-    content: "";
-    height: 4px;
-    width: 20px;
-    cursor: pointer;
-    margin-right: 15px;
-  }
-  input {
-    display: none;
   }
 }
 main {
